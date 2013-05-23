@@ -1,0 +1,30 @@
+!!!
+%html{ :lang => 'en' }
+  %head
+    %title Dragnet - Loading...
+    
+    %meta{ :name => 'viewport', :content => 'width=device-width, initial-scale=1.0' }
+    %meta{ :charset => 'utf-8' }
+
+    - lib = '../lib/dragnet'
+
+    %script{ :type => 'text/javascript', :src => "#{lib}/js/jquery-1.9.1.min.js" }
+    %script{ :type => 'text/javascript', :src => "#{lib}/js/bootstrap.min.js" }
+    %script{ :type => 'text/javascript', :src => "#{lib}/js/ZeroClipboard.min.js" }
+    %script{ :type => 'text/javascript', :src => "#{lib}/js/dragnet.js" }
+    
+    :javascript
+      $(document).ready(function(){
+        //$('#query').liveQuery();
+      });
+
+    %link{ :type => 'text/css', :rel => 'stylesheet', :media => 'screen', :href => "#{lib}/css/bootstrap.min.css" }
+    %link{ :type => 'text/css', :rel => 'stylesheet', :media => 'screen', :href => "#{lib}/css/bootstrap-responsive.min.css" }
+    %link{ :type => 'text/css', :rel => 'stylesheet', :media => 'screen', :href => "#{lib}/css/default.css" }
+  %body
+    .container
+      #main
+        #error-message
+          .text-error
+        .jumbotron
+          %h1 Loading Dragnet...
