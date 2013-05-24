@@ -6,7 +6,7 @@
     %meta{ :name => 'viewport', :content => 'width=device-width, initial-scale=1.0' }
     %meta{ :charset => 'utf-8' }
 
-    - lib = '../lib/dragnet'
+    - lib = '.'
 
     %script{ :type => 'text/javascript', :src => "#{lib}/js/jquery-1.9.1.min.js" }
     %script{ :type => 'text/javascript', :src => "#{lib}/js/bootstrap.min.js" }
@@ -15,7 +15,22 @@
     
     :javascript
       $(document).ready(function(){
-        //$('#query').liveQuery();
+        setInterval(function(){
+          $.ajax({
+            dataType: 'json',
+            url: 'http://localhost:3000/patients/1.json',
+            complete: function(xhr, s){
+              location.href = "http://localhost:3000";
+            },
+          });
+        }, 3000);
+        setInterval(function(){
+          $('.jumbotron').fadeOut(function(){
+            setTimeout(function(){
+              $('.jumbotron').fadeIn();
+            }, 200);
+          });
+        }, 1000);
       });
 
     %link{ :type => 'text/css', :rel => 'stylesheet', :media => 'screen', :href => "#{lib}/css/bootstrap.min.css" }
@@ -27,4 +42,4 @@
         #error-message
           .text-error
         .jumbotron
-          %h1 Loading Dragnet...
+          %h1 Loading...

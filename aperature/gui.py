@@ -18,9 +18,11 @@ except ImportError:
     # Import from package (installer).
     from cefpython1 import cefpython
 
-import cefwindow
+import window
 import win32con
 import win32gui
+
+SPLASH_PAGE = "splash-page.html"
 
 def GetApplicationPath(file=None):
     import re, os
@@ -49,13 +51,13 @@ def ExceptHook(type, value, traceObject):
     error = "\n".join(traceback.format_exception(type, value, traceObject))
     with open(GetApplicationPath("error.log"), "a") as file:
         file.write("\n[%s] %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"), error))
-    print("\n"+error+"\n")
+    print("\n" + error + "\n")
     cefpython.QuitMessageLoop()
     cefpython.Shutdown()
     # So that "finally" does not execute.
     os._exit(1)
 
-def CefSimple():
+def show_gui():
     sys.excepthook = ExceptHook
     cefpython.g_debug = True
     cefpython.Initialize()
@@ -65,14 +67,14 @@ def CefSimple():
         win32con.WM_SIZE: cefpython.WindowUtils.OnSize,
         win32con.WM_SETFOCUS: cefpython.WindowUtils.OnSetFocus,
         win32con.WM_ERASEBKGND: cefpython.WindowUtils.OnEraseBackground }
-    windowHandle = cefwindow.CreateWindow(
+    windowHandle = window.CreateWindow(
             title="Dragnet", className="dragnet", width=800, height=600,
             icon="icon.ico", windowProc=wndproc)
     windowInfo = cefpython.WindowInfo()
     windowInfo.SetAsChild(windowHandle)
     browser = cefpython.CreateBrowserSync(
             windowInfo, browserSettings={},
-            navigateUrl=GetApplicationPath("..\\extra\\splash-page.html"))
+            navigateUrl=GetApplicationPath(SPLASH_PAGE))
     cefpython.MessageLoop()
     cefpython.Shutdown()
 
@@ -86,4 +88,4 @@ def QuitApplication(windowHandle, message, wparam, lparam):
     return 0
 
 if __name__ == "__main__":
-    CefSimple()
+    show_gui()
