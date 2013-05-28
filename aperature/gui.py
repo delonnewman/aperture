@@ -75,6 +75,7 @@ def show_gui():
     browser = cefpython.CreateBrowserSync(
             windowInfo, browserSettings={},
             navigateUrl=GetApplicationPath(SPLASH_PAGE))
+    browser.ShowDevTools()
     cefpython.MessageLoop()
     cefpython.Shutdown()
 
