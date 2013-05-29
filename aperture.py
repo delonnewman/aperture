@@ -10,7 +10,7 @@ def call(fn, arg):
     fn(arg)
 
 def main():
-    p = Process(target=ruby, args=('C:\\Users\\VHAHONNEWMAD\\Projects\\dragnet\\apps\\recruitments\\app.rb'))
+    p = Process(target=ruby, args=('app.rb'))
     p.start()
     p.join()
     #gui.show_gui()
